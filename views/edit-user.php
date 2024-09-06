@@ -47,7 +47,7 @@ $user = $user_obj->getUser($_SESSION['id']);
             <?php
             if ($user['photo']) {
             ?>
-              <img src="../assets/images/<?= $user['photo'] ?>" alt="/<?= $user['photo'] ?>" class="d-block mx-auto edit-photo">
+              <img src="../assets/images/<?= $user['photo'] ?>" alt="<?= $user['photo'] ?>" class="d-block mx-auto edit-photo">
             <?php
             } else {
             ?>
@@ -64,9 +64,9 @@ $user = $user_obj->getUser($_SESSION['id']);
         </div>
         <div class="mb-3">
           <label for="last-name" class="form-label">Last Name</label>
-          <input type="text" name="last_name" id="last_name" class="form-control" value="<?= $user['last_name'] ?>" required>
+          <input type="text" name="last_name" id="last-name" class="form-control" value="<?= $user['last_name'] ?>" required>
         </div>
-        <div class="mb-3">
+        <div class="mb-4">
           <label for="username" class="form-label  fw-bold">UserName</label>
           <input type="text" name="username" id="username" class="form-control fw-bold" maxlength="15" value="<?= $user['username'] ?>" required>
         </div>

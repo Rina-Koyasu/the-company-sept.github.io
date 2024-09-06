@@ -4,7 +4,6 @@ require 'Database.php';
 
 class User extends Database
 {
-
   public function store($request)
   {
     $first_name = $request['first_name'];
@@ -101,7 +100,7 @@ class User extends Database
     $photo       =  $files['photo']['name'];
     $tmp_photo   =  $files['photo']['tmp_name'];
 
-    $sql = "UPDATE users SET first_name ='$first_name',last_name ='$last_name',username ='$username' WHERE id ='$id'";
+    $sql = "UPDATE users SET first_name ='$first_name',last_name ='$last_name',username ='$username' WHERE id =$id";
     if ($this->conn->query($sql)) {
       $_SESSION['username'] = $username;
       $_SESSION['full_name'] = "$first_name $last_name";
@@ -120,32 +119,27 @@ class User extends Database
             die('Error moving the photo.');
           }
         } else {
-          die('Error uploading the photo.' . $this->conn->error);
+          die('Error uploading the photo:' . $this->conn->error);
         }
-        header('location: ../views/dashboard.php');
-        exit;
-      } else {
-        die('Error uploading the user: ' . $this->conn->error);
       }
+      header('location: ../views/dashboard.php');
+      exit;
+    } else {
+      die('Error uploading the user: ' . $this->conn->error);
     }
   }
 
-public function delete()
-{
-session_start();
-$id = $_SESSION['id'];
-$sql ="DELETE FROM users WHERE id = $id";
 
-if($this->conn->query($sql)){
-  $this->logout();
-}else{
-  die('Error deleting your account. ' . $this->conn->error);
+  public function delete()
+  {
+    session_start();
+    $id = $_SESSION['id'];
+    $sql = "DELETE FROM users WHERE id = $id";
+
+    if ($this->conn->query($sql)) {
+      $this->logout();
+    } else {
+      die('Error deleting your account. ' . $this->conn->error);
+    }
+  }
 }
-
-}
-
-
-}
-
-
-?>
